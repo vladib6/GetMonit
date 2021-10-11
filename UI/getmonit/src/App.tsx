@@ -161,7 +161,7 @@ const MessageList = () => {
     const [messages,SetMessages]=useState<message[]>([])
 
     const ClearHandler=async()=>{
-        await API.patch('/clear')
+        await API.put('/clear')
             .then(res=> res.data)
             .catch(err=>console.log(err))
 
