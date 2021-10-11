@@ -44,8 +44,8 @@ func (controller *Controller) CreateTravelReq(w http.ResponseWriter,r *http.Requ
 	}
 	_, err := controller.CreateTravel(requestBody.PassengerName,requestBody.Source,requestBody.Destination)
 	if err != nil {
-		w.WriteHeader(http.StatusLengthRequired)
-		w.Write([]byte("Error to create Travel"))
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte("Error to create Travel in server"))
 		return
 	}
 	w.WriteHeader(http.StatusOK)
@@ -57,8 +57,8 @@ func  (controller *Controller) GetNotificationsReq(w http.ResponseWriter,r *http
 	jsonbytes,err:=json.Marshal(controller.GetNewNotifications())
 	if err!=nil{
 		fmt.Println(err)
-		w.WriteHeader(http.StatusBadRequest)
-		w.Write([]byte("Error to get notifications"))
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte("Error to get notifications from server"))
 		return
 	}
 
@@ -68,4 +68,5 @@ func  (controller *Controller) GetNotificationsReq(w http.ResponseWriter,r *http
 
 func  (controller *Controller) Clear(w http.ResponseWriter,r *http.Request){
 	controller.ClearNotifications();
+	w.WriteHeader(http.StatusOK)
 }
